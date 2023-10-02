@@ -6,7 +6,6 @@ import {
   IsNumber,
   IsString,
   IsUrl,
-  IsObject,
 } from 'class-validator';
 import ProviderPayloadDto from './provider_payload.dto';
 import { Type } from '@nestjs/class-transformer';
@@ -62,7 +61,6 @@ export class Provider2PayloadDto implements ProviderPayloadDto {
 
   @IsNotEmpty()
   @IsNestedElements(Provider2DataDto)
-  @IsObject()
   data: {
     [key: string]: Provider2DataDto;
   };
