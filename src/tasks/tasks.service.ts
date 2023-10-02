@@ -69,6 +69,9 @@ export class TasksService {
         });
         const entity = this.createEntityFromDto(formattedOffer);
         this.offerRepository.upsert(entity, ['externalOfferId']);
+        this.logger.log(
+          `An offer has been upserted from provider ${provider.name}`,
+        );
       }
     });
   }
