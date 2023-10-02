@@ -1,5 +1,6 @@
-import ProviderPayloadDto from '../dto/provider_payload.dto';
+import PayloadDto from '../dto/payload.dto';
 import OfferDto from '../dto/offer.dto';
+import PayloadOfferDto from '../dto/payload_offer.dto';
 
 export default interface Provider {
   name: string;
@@ -9,6 +10,9 @@ export default interface Provider {
     new (): OfferDto;
   };
   payloadDto: {
-    new (): ProviderPayloadDto;
+    new (): PayloadDto;
+  };
+  payloadOfferDto: {
+    new (): PayloadOfferDto;
   };
 }

@@ -29,19 +29,19 @@ export class Provider2OfferDto implements OfferDto {
   thumbnail: string;
 
   // indicates if offer is available for desktop
-  @Transform(({ obj: { OS: os } }) => os.web)
+  @Transform(({ obj: { OS: os } }) => (os.web ? 1 : 0))
   @Expose()
-  isDesktop: boolean = true;
+  isDesktop: number;
 
   // indicates if offer is available for android
-  @Transform(({ obj: { OS: os } }) => os.android)
+  @Transform(({ obj: { OS: os } }) => (os.android ? 1 : 0))
   @Expose()
-  isAndroid: boolean;
+  isAndroid: number;
 
   // indicates if offer is available for ios
-  @Transform(({ obj: { OS: os } }) => os.ios)
+  @Transform(({ obj: { OS: os } }) => (os.ios ? 1 : 0))
   @Expose()
-  isIos: boolean;
+  isIos: number;
 
   // offer url template
   @Transform(({ obj: { Offer: offer } }) => offer.tracking_url)

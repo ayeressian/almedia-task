@@ -9,29 +9,29 @@ export class Provider1OfferDto implements OfferDto {
 
   // unique identifier for offer
   // TODO
-  @Transform(({ obj }) => obj?.offer_idsdaf)
+  @Transform(({ obj }) => obj.offer_id)
   @Expose()
   slug: string;
 
   // offer description
-  @Transform(({ obj }) => obj?.offer_desc)
+  @Transform(({ obj }) => obj.offer_desc)
   @Expose()
   description: string;
 
   // offer requirements
-  @Transform(({ obj }) => obj?.call_to_action)
+  @Transform(({ obj }) => obj.call_to_action)
   @Expose()
   requirements: string;
 
   // offer thumbnail image url
-  @Transform(({ obj }) => obj?.image_url)
+  @Transform(({ obj }) => obj.image_url)
   @Expose()
   thumbnail: string;
 
   // indicates if offer is available for desktop
-  @Transform(({ obj }) => obj.platform === 'desktop')
+  @Transform(({ obj }) => (obj.platform === 'desktop' ? 1 : 0))
   @Expose()
-  isDesktop: boolean = true;
+  isDesktop: number;
 
   // indicates if offer is available for android
   @Transform(({ obj }) => {
@@ -39,18 +39,18 @@ export class Provider1OfferDto implements OfferDto {
     const index = devices.findIndex(
       (device: string) => device !== 'iphone' && device !== 'ipad',
     );
-    return index !== -1;
+    return index !== -1 ? 1 : 0;
   })
   @Expose()
-  isAndroid: boolean;
+  isAndroid: number;
 
   // indicates if offer is available for ios
   @Transform(({ obj }) => {
     const devices = obj.device.split('_');
-    return devices.includes('iphone');
+    return devices.includes('iphone') ? 1 : 0;
   })
   @Expose()
-  isIos: boolean;
+  isIos: number;
 
   // offer url template
   @Transform(({ obj }) => obj.offer_url)

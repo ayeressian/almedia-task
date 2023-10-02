@@ -1,4 +1,7 @@
-import { Provider2PayloadDto } from '../dto/provider2_payload.dto';
+import {
+  Provider2PayloadDto,
+  Provider2DataDto,
+} from '../dto/provider2_payload.dto';
 import { Provider2OfferDto } from '../dto/provider2_offer.dto';
 import Provider from './provider';
 
@@ -9,4 +12,5 @@ export default class Provider2 implements Provider {
     Object.values(data.data);
   dto = Provider2OfferDto;
   payloadDto = Provider2PayloadDto;
+  payloadOfferDto = Provider2DataDto;
 }

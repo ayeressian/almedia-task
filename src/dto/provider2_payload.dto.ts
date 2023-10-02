@@ -6,10 +6,11 @@ import {
   IsNumber,
   IsString,
   IsUrl,
+  IsObject,
 } from 'class-validator';
-import ProviderPayloadDto from './provider_payload.dto';
+import PayloadDto from './payload.dto';
 import { Type } from '@nestjs/class-transformer';
-import IsNestedElements from './nested_element';
+import PayloadOfferDto from './payload_offer.dto';
 
 class Provider2OfferDto {
   @IsNumber()
@@ -45,7 +46,7 @@ class Provider2OsDto {
   web: boolean;
 }
 
-class Provider2DataDto {
+export class Provider2DataDto implements PayloadOfferDto {
   @ValidateNested()
   @Type(() => Provider2OfferDto)
   Offer: Provider2OfferDto;
@@ -55,13 +56,10 @@ class Provider2DataDto {
   OS: Provider2OsDto;
 }
 
-export class Provider2PayloadDto implements ProviderPayloadDto {
+export class Provider2PayloadDto implements PayloadDto {
   @IsIn(['success'])
   status: string;
 
-  @IsNotEmpty()
-  @IsNestedElements(Provider2DataDto)
-  data: {
-    [key: string]: Provider2DataDto;
-  };
+  @IsObject()
+  data: Record<string, Provider2DataDto>;
 }

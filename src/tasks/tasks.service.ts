@@ -44,17 +44,7 @@ export class TasksService {
 
   createEntityFromDto(dto: OfferDto) {
     const entity = new OfferEntity();
-    entity.name = dto.name;
-    entity.slug = dto.externalOfferId;
-    entity.description = dto.description;
-    entity.requirements = dto.requirements;
-    entity.thumbnail = dto.thumbnail;
-    entity.isDesktop = dto.isDesktop ? 1 : 0;
-    entity.isAndroid = dto.isAndroid ? 1 : 0;
-    entity.isIos = dto.isIos ? 1 : 0;
-    entity.offerUrlTemplate = dto.offerUrlTemplate;
-    entity.providerName = dto.providerName;
-    entity.externalOfferId = dto.externalOfferId;
+    Object.assign(entity, dto);
     entity.id = null as unknown as number; //https://github.com/typeorm/typeorm/issues/7643#issuecomment-1081398542
     return entity;
   }
@@ -64,10 +54,16 @@ export class TasksService {
       const payloadDto = plainToClass(provider.payloadDto, data);
       const valErrors = await validate(payloadDto);
       if (valErrors.length > 0) {
-        this.logger.warn(`Invalid payload form provider ${provider.name}`);
+        this.logger.error(`Invalid payload form provider ${provider.name}`);
         return;
       }
       for (const offer of provider.getOffers(data)) {
+        const payloadOfferDto = plainToClass(provider.payloadOfferDto, offer);
+        const valErrors = await validate(payloadOfferDto);
+        if (valErrors.length > 0) {
+          this.logger.warn(`Invalid offer form provider ${provider.name}`);
+          continue;
+        }
         const formattedOffer = plainToClass(provider.dto, offer, {
           excludeExtraneousValues: true,
         });

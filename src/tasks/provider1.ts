@@ -1,4 +1,7 @@
-import { Provider1PayloadDto } from '../dto/provider1_payload.dto';
+import {
+  Provider1PayloadDto,
+  Provider1PayloadOfferDto,
+} from '../dto/provider1_payload.dto';
 import { Provider1OfferDto } from '../dto/provider1_offer.dto';
 import Provider from './provider';
 
@@ -8,4 +11,5 @@ export default class Provider1 implements Provider {
   getOffers = (data: { response: { offers: [] } }) => data.response.offers;
   dto = Provider1OfferDto;
   payloadDto = Provider1PayloadDto;
+  payloadOfferDto = Provider1PayloadOfferDto;
 }

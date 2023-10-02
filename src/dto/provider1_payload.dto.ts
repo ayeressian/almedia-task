@@ -5,10 +5,11 @@ import {
   ValidateNested,
   IsUrl,
 } from 'class-validator';
-import ProviderPayloadDto from './provider_payload.dto';
+import PayloadDto from './payload.dto';
 import { Type } from '@nestjs/class-transformer';
+import PayloadOfferDts from './payload_offer.dto';
 
-class Provider1OfferDto {
+export class Provider1PayloadOfferDto implements PayloadOfferDts {
   @IsString()
   @IsNotEmpty()
   offer_id: string;
@@ -42,12 +43,10 @@ class Provider1OfferDto {
 
 class Provider1ResponseDto {
   @IsArray()
-  @ValidateNested()
-  @Type(() => Provider1OfferDto)
-  offers: Provider1OfferDto[];
+  offers: Provider1PayloadOfferDto[];
 }
 
-export class Provider1PayloadDto implements ProviderPayloadDto {
+export class Provider1PayloadDto implements PayloadDto {
   @IsNotEmpty()
   @ValidateNested()
   @Type(() => Provider1ResponseDto)

@@ -14,13 +14,13 @@ export default interface OfferDto {
   thumbnail: string;
 
   // indicates if offer is available for desktop
-  isDesktop: boolean;
+  isDesktop: number;
 
   // indicates if offer is available for android
-  isAndroid: boolean;
+  isAndroid: number;
 
   // indicates if offer is available for ios
-  isIos: boolean;
+  isIos: number;
 
   // offer url template
   offerUrlTemplate: string;
